@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+        ol li{margin:15px auto}
+        #list .play{
+        	background: yellow;
+        }
+    </style>
+</head>
+<body>
+	<audio src="" id="audio" controls="controls" autoplay="autoplay"></audio>
+	<ol id="list">
+        <li class="play">source/马里奥赛德,Alan Walker,Iselin Solheim - Faded（钢琴版+女声）.mp3</li>
+        <li>source/逃跑计划 - 夜空中最亮的星.mp3</li>
+        <li>source/薛之谦 - 丑八怪.mp3</li>
+        <li>source/薛之谦-演员.mp3</li>
+    </ol>
+    <script>
+    	var audio = document.getElementById("audio");
+    	var list = document.getElementById("list");
+    	var lis = list.getElementsByTagName('li');
+    	//点击li播放歌曲同时高亮显示
+    	for(var i = 0 ; i < lis.length;i++){
+    		lis[i].onclick = function(){
+    			audio.src = this.innerText;
+    			for(var j = 0 ; j <lis.length;j++){
+    				lis[j].className = "";
+    			}
+    			this.className = "play";
+    		}
+    		
+    	}
+    	//循环播放
+        audio.onended = function(){
+        	var index =getIndex();
+        	if(index==lis.length -1){
+               index = -1;
+        	}
+        	audio.src = lis[index+1].innerText;
+        	for(var j = 0 ; j <lis.length;j++){
+    				lis[j].className = "";
+    			}
+    			lis[index+1].className = "play";
+    	}
+        
+
+
+
+
+    	// 找到当前歌的索引
+    	function getIndex(){
+    	  for(var i = 0 ;i <lis.length;i++){
+    		if(lis[i].getAttribute("class") == "play"){
+    			return i ;
+    		}
+    		
+    		
+    	 }
+
+	
+    	}
+    	
+    </script>
+</body>
+</html>
